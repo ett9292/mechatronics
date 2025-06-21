@@ -311,25 +311,47 @@ static esp_err_t index_handler(httpd_req_t *req){
      page += "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0\">\n";
  page += "<script>var xhttp = new XMLHttpRequest();</script>";
  page += "<script>function getsend(arg) { xhttp.open('GET', arg +'?' + new Date().getTime(), true); xhttp.send() } </script>";
+
+page += "<style>"
+        /* 預設狀態：外陰影 */
+        "button {"
+          "box-shadow: 0 4px 6px rgba(0,0,0,0.3);"    /* x位移0, y位移4px, 模糊6px, 半透明黑 */
+          "transition: transform 0.1s ease, opacity 0.1s ease, box-shadow 0.1s ease;"
+          "cursor: pointer;"
+        "}"
+        /* 按下時：陰影縮小、向下位移 */
+        "button:active {"
+          "transform: translateY(2px);"
+          "opacity: 0.9;"
+          "box-shadow: 0 2px 3px rgba(0,0,0,0.2);"    /* 陰影往上縮小 */
+        "}"
+      "</style>";
+
  //page += "<p align=center><IMG SRC='http://" + WiFiAddr + ":81/stream' style='width:280px;'></p><br/><br/>";
- page += "<p align=center><IMG SRC='http://" + WiFiAddr + ":81/stream' style='width:300px; transform:rotate(180deg);'></p><br/><br/>";
+ page += "<p align=center><IMG SRC='http://" + WiFiAddr + ":81/stream' style='width:300px;'></p><br/><br/>";
+
+ //LED
+ page += "<p align=center>";
+ page += "<button style=background-color:yellow;width:140px;height:40px onmousedown=getsend('ledon')><b>Light ON</b></button>";
+ page += "<button style=background-color:yellow;width:140px;height:40px onmousedown=getsend('ledoff')><b>Light OFF</b></button>";
+ page += "</p>";
 
  //按鈕第一排
  page += "<p align=center>";
- page += "<button style=background-color:lightgrey;width:90px;height:80px onmousedown=getsend('leftup') onmouseup=getsend('stop') ontouchstart=getsend('leftup') ontouchend=getsend('stop') ><b>Upper left</b></button>&nbsp;";
- page += "<button style=background-color:lightgrey;width:90px;height:80px onmousedown=getsend('go') onmouseup=getsend('stop') ontouchstart=getsend('go') ontouchend=getsend('stop') ><b>Forward</b></button>&nbsp;";
+ page += "<button style=background-color:lightgrey;width:90px;height:80px onmousedown=getsend('leftup') onmouseup=getsend('stop') ontouchstart=getsend('leftup') ontouchend=getsend('stop') ><b>Upper left</b></button>&nbsp&nbsp&nbsp;";
+ page += "<button style=background-color:lightgrey;width:90px;height:80px onmousedown=getsend('go') onmouseup=getsend('stop') ontouchstart=getsend('go') ontouchend=getsend('stop') ><b>Forward</b></button>&nbsp&nbsp&nbsp;";
  page += "<button style=background-color:lightgrey;width:90px;height:80px onmousedown=getsend('rightup') onmouseup=getsend('stop') ontouchstart=getsend('rightup') ontouchend=getsend('stop') ><b>Upper right</b></button> </p>";
  //第二排
  page += "<p align=center>";
- page += "<button style=background-color:lightgrey;width:90px;height:80px; onmousedown=getsend('left') onmouseup=getsend('stop') ontouchstart=getsend('left') ontouchend=getsend('stop')><b>Left</b></button>&nbsp;";
- page += "<button style=background-color:indianred;width:90px;height:80px onmousedown=getsend('stop') onmouseup=getsend('stop')><b>Stop</b></button>&nbsp;";
+ page += "<button style=background-color:lightgrey;width:90px;height:80px; onmousedown=getsend('left') onmouseup=getsend('stop') ontouchstart=getsend('left') ontouchend=getsend('stop')><b>Left</b></button>&nbsp&nbsp&nbsp;";
+ page += "<button style=background-color:indianred;width:90px;height:80px onmousedown=getsend('stop') onmouseup=getsend('stop')><b>Stop</b></button>&nbsp&nbsp&nbsp;";
  page += "<button style=background-color:lightgrey;width:90px;height:80px onmousedown=getsend('right') onmouseup=getsend('stop') ontouchstart=getsend('right') ontouchend=getsend('stop')><b>Right</b></button>";
  page += "</p>";
 //第三排
  page += "<p align=center>";
- page += "<button style=background-color:lightgrey;width:90px;height:80px onmousedown=getsend('leftdown') onmouseup=getsend('stop') ontouchstart=getsend('leftdown') ontouchend=getsend('stop') ><b>Lower left</b></button>&nbsp;";
- page += "<button style=background-color:lightgrey;width:90px;height:80px onmousedown=getsend('back') onmouseup=getsend('stop') ontouchstart=getsend('back') ontouchend=getsend('stop') ><b>Backward</b></button>&nbsp;"; 
- page += "<button style=background-color:lightgrey;width:90px;height:80px onmousedown=getsend('rightdown') onmouseup=getsend('stop') ontouchstart=getsend('righdown') ontouchend=getsend('stop') ><b>Lower right</b></button> </p>"; 
+ page += "<button style=background-color:lightgrey;width:90px;height:80px onmousedown=getsend('leftdown') onmouseup=getsend('stop') ontouchstart=getsend('leftdown') ontouchend=getsend('stop') ><b>Lower left</b></button>&nbsp&nbsp&nbsp;";
+ page += "<button style=background-color:lightgrey;width:90px;height:80px onmousedown=getsend('back') onmouseup=getsend('stop') ontouchstart=getsend('back') ontouchend=getsend('stop') ><b>Backward</b></button>&nbsp&nbsp&nbsp;"; 
+ page += "<button style=background-color:lightgrey;width:90px;height:80px onmousedown=getsend('rightdown') onmouseup=getsend('stop') ontouchstart=getsend('rightdown') ontouchend=getsend('stop') ><b>Lower right</b></button> </p>"; 
 //順逆時針
  page += "<p align=center>";
  page += "<button style=background-color:Tan;width:135px;height:80px onmousedown=getsend('turnclockwise') onmouseup=getsend('stop') ontouchstart=getsend('turnclockwise') ontouchend=getsend('stop') ><b>Turn clockwise</b></button>&nbsp;";
@@ -346,11 +368,6 @@ static esp_err_t index_handler(httpd_req_t *req){
  page += "<button style=background-color:MediumAquamarine;width:90px;height:80px onmousedown=getsend('collector_up') onmouseup=getsend('stop') ontouchstart=getsend('collector_up') ontouchend=getsend('stop') ><b>Up</b></button>&nbsp;";
  page += "<button style=background-color:MediumAquamarine;width:90px;height:80px onmousedown=getsend('collector_down') onmouseup=getsend('stop') ontouchstart=getsend('collector_down') ontouchend=getsend('stop') ><b>Down</b></button> </p>"; 
  
-//LED
- page += "<p align=center>";
- page += "<button style=background-color:yellow;width:140px;height:40px onmousedown=getsend('ledon')><b>Light ON</b></button>";
- page += "<button style=background-color:yellow;width:140px;height:40px onmousedown=getsend('ledoff')><b>Light OFF</b></button>";
- page += "</p>";
  
     return httpd_resp_send(req, &page[0], strlen(&page[0]));
 }
@@ -394,15 +411,77 @@ static esp_err_t ledon_handler(httpd_req_t *req){
     httpd_resp_set_type(req, "text/html");
     return httpd_resp_send(req, "OK", 2);
 }
-static esp_err_t ledoff_handler(httpd_req_t *req){
+static esp_err_t  (httpd_req_t *req){
     digitalWrite(gpLed, LOW);
     Serial.println("LED OFF");
     httpd_resp_set_type(req, "text/html");
     return httpd_resp_send(req, "OK", 2);
 }
-
+ ////////////////////////新增按鈕///////////////////////////
+static esp_err_t a_forward_handler(httpd_req_t *req){
+    WheelAct(LOW, LOW, LOW, HIGH);
+    Serial.println("motorA forward");
+    httpd_resp_set_type(req, "text/html");
+    return httpd_resp_send(req, "OK", 2);
+}
+static esp_err_t a_reverse_handler(httpd_req_t *req){
+    WheelAct(LOW, LOW, HIGH, LOW);
+    Serial.println("motorA reverse1/2");
+    httpd_resp_set_type(req, "text/html");
+    return httpd_resp_send(req, "OK", 2);
+}
+static esp_err_t collector_down_handler(httpd_req_t *req){
+    WheelAct(LOW, LOW, HIGH, HIGH);
+    Serial.println("collector down");
+    httpd_resp_set_type(req, "text/html");
+    return httpd_resp_send(req, "OK", 2);
+}
+static esp_err_t collector_up_handler(httpd_req_t *req){
+    WheelAct(LOW, HIGH, LOW, LOW);
+    Serial.println("collector up");
+    httpd_resp_set_type(req, "text/html");
+    return httpd_resp_send(req, "OK", 2);
+}
+static esp_err_t turnclockwise_handler(httpd_req_t *req){
+    WheelAct(LOW, HIGH, HIGH, LOW);
+    Serial.println("turnclockwise");
+    httpd_resp_set_type(req, "text/html");
+    return httpd_resp_send(req, "OK", 2);
+}
+static esp_err_t counterclockwise_handler(httpd_req_t *req){
+    WheelAct(HIGH, LOW, LOW, HIGH);
+    Serial.println("counterclockwise");
+    httpd_resp_set_type(req, "text/html");
+    return httpd_resp_send(req, "OK", 2);
+}
+static esp_err_t leftup_handler(httpd_req_t *req){
+    WheelAct(HIGH, LOW, HIGH, HIGH);
+    Serial.println("left up");
+    httpd_resp_set_type(req, "text/html");
+    return httpd_resp_send(req, "OK", 2);
+}
+static esp_err_t leftdown_handler(httpd_req_t *req){
+    WheelAct(HIGH, HIGH, LOW, LOW);
+    Serial.println("left down");
+    httpd_resp_set_type(req, "text/html");
+    return httpd_resp_send(req, "OK", 2);
+}
+static esp_err_t rightup_handler(httpd_req_t *req){
+    WheelAct(HIGH, HIGH, LOW, HIGH);
+    Serial.println("right up");
+    httpd_resp_set_type(req, "text/html");
+    return httpd_resp_send(req, "OK", 2);
+}
+static esp_err_t rightdown_handler(httpd_req_t *req){
+    WheelAct(HIGH, HIGH, HIGH, LOW);
+    Serial.println("right down");
+    httpd_resp_set_type(req, "text/html");
+    return httpd_resp_send(req, "OK", 2);
+}
+///////////////////////////////////////////////////
 void startCameraServer(){
     httpd_config_t config = HTTPD_DEFAULT_CONFIG();
+     config.max_uri_handlers = 32;
 
     httpd_uri_t go_uri = {
         .uri       = "/go",
@@ -452,7 +531,69 @@ void startCameraServer(){
         .handler   = ledoff_handler,
         .user_ctx  = NULL
     };
-
+ /////////////////////////新增按鈕//////////////////////////
+    httpd_uri_t a_forward_uri = {
+        .uri       = "/a_forward",
+        .method    = HTTP_GET,
+        .handler   = a_forward_handler,
+        .user_ctx  = NULL
+    };
+    httpd_uri_t a_reverse_uri = {
+        .uri       = "/a_reverse",
+        .method    = HTTP_GET,
+        .handler   = a_reverse_handler,
+        .user_ctx  = NULL
+    };
+    httpd_uri_t collector_down_uri = {
+        .uri       = "/collector_down",
+        .method    = HTTP_GET,
+        .handler   = collector_down_handler,
+        .user_ctx  = NULL
+    };
+    httpd_uri_t collector_up_uri = {
+        .uri       = "/collector_up",
+        .method    = HTTP_GET,
+        .handler   = collector_up_handler,
+        .user_ctx  = NULL
+    };
+    httpd_uri_t turnclockwise_uri = {
+        .uri       = "/turnclockwise",
+        .method    = HTTP_GET,
+        .handler   = turnclockwise_handler,
+        .user_ctx  = NULL
+    };
+    httpd_uri_t counterclockwise_uri = {
+        .uri       = "/counterclockwise",
+        .method    = HTTP_GET,
+        .handler   = counterclockwise_handler,
+        .user_ctx  = NULL
+    };
+    httpd_uri_t leftup_uri = {
+        .uri       = "/leftup",
+        .method    = HTTP_GET,
+        .handler   = leftup_handler,
+        .user_ctx  = NULL
+    };
+    httpd_uri_t leftdown_uri = {
+        .uri       = "/leftdown",
+        .method    = HTTP_GET,
+        .handler   = leftdown_handler,
+        .user_ctx  = NULL
+    };
+    httpd_uri_t rightup_uri = {
+        .uri       = "/rightup",
+        .method    = HTTP_GET,
+        .handler   = rightup_handler,
+        .user_ctx  = NULL
+    };
+    httpd_uri_t rightdown_uri = {
+        .uri       = "/rightdown",
+        .method    = HTTP_GET,
+        .handler   = rightdown_handler,
+        .user_ctx  = NULL
+    };
+    
+///////////////////////////////////////////////////
     httpd_uri_t index_uri = {
         .uri       = "/",
         .method    = HTTP_GET,
@@ -500,6 +641,17 @@ void startCameraServer(){
         httpd_register_uri_handler(camera_httpd, &right_uri);
         httpd_register_uri_handler(camera_httpd, &ledon_uri);
         httpd_register_uri_handler(camera_httpd, &ledoff_uri);
+        httpd_register_uri_handler(camera_httpd, &a_forward_uri);
+        httpd_register_uri_handler(camera_httpd, &a_reverse_uri);
+        httpd_register_uri_handler(camera_httpd, &collector_down_uri);
+        httpd_register_uri_handler(camera_httpd, &collector_up_uri);
+        httpd_register_uri_handler(camera_httpd, &turnclockwise_uri);
+        httpd_register_uri_handler(camera_httpd, &counterclockwise_uri);
+        httpd_register_uri_handler(camera_httpd, &leftup_uri);
+        httpd_register_uri_handler(camera_httpd, &leftdown_uri);
+        httpd_register_uri_handler(camera_httpd, &rightup_uri);
+        httpd_register_uri_handler(camera_httpd, &rightdown_uri);
+        
     }
 
     config.server_port += 1;
