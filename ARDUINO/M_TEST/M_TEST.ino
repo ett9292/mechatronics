@@ -128,6 +128,25 @@ void loop() {
       if (a==0 and b==0 and c==0 and d==0){
         key = 'w';
       }
+      if (a==0 and b==1 and c==1 and d==1){
+        key = 'l';
+      }
+      if (a==1 and b==0 and c==0 and d==0){
+        key = 'r';
+      }
+      if (a==1 and b==0 and c==1 and d==1){
+        key = '1';
+      }
+      if (a==1 and b==1 and c==0 and d==0){
+        key = '2';
+      }
+      if (a==1 and b==1 and c==0 and d==1){
+        key = '3';
+      }
+      if (a==1 and b==1 and c==1 and d==0){
+        key = '4';
+      }
+      
       if (a==1 and b==1 and c==1 and d==1){
         key = key;
       }
